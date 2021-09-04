@@ -1,0 +1,2 @@
+defmodule FlightFinder do
+end
