@@ -26,14 +26,14 @@ defmodule FlightFinder.CheapestFlightTest do
            fetch_prices: fn @request ->
              {:ok,
               [
-                {:KLM, Decimal.new("15.0")},
+                {:KLM, Decimal.new("20.0")},
                 {:KLM, Decimal.new("3.0")},
                 {:KLM, Decimal.new("200.0")}
               ]}
            end
          ]}
       ]) do
-        assert {:KLM, Decimal.new("3.0")} == CheapestFlight.find(@request)
+        assert {:ok, {:KLM, Decimal.new("3.0")}} == CheapestFlight.find(@request)
       end
     end
   end

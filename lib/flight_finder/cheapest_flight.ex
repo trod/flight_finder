@@ -1,6 +1,7 @@
 defmodule FlightFinder.CheapestFlight do
   alias FlightFinder.Clients
 
+  # TODO: maybe move this to config?
   @clients [:klm, :ba]
 
   def find(
@@ -11,24 +12,31 @@ defmodule FlightFinder.CheapestFlight do
         } = request
       ) do
     prices =
-      @clients
-      |> Enum.map(fn client -> Clients.client(client) end)
-      |> Enum.map(fn client ->
-        Task.async(fn ->
-          Clients.fetch_price(client, request)
+      try do
+        @clients
+        |> Enum.map(fn client -> Clients.client(client) end)
+        |> Enum.map(fn client ->
+          Task.async(fn ->
+            Clients.fetch_price(client, request)
+          end)
         end)
-      end)
-      |> Enum.map(&Task.await/1)
-      |> List.flatten()
+        |> Task.await_many()
+        |> List.flatten()
+      catch
+        # Return empty list on task's timeout.
+        # Not sure if we need to bubble a timeout up to external client.
+        :exit, _ -> []
+      end
 
     case prices do
       [] ->
-        :not_found
+        {:ok, :not_found}
 
       prices ->
-        prices
-        |> Enum.sort_by(fn {_code, price} -> price end)
-        |> List.first()
+        {:ok,
+         prices
+         |> Enum.sort_by(fn {_code, price} -> price end)
+         |> List.first()}
     end
   end
 

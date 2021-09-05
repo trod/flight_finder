@@ -1,11 +1,14 @@
 defmodule FlightFinderWeb.Router do
   use FlightFinderWeb, :router
+  alias FlightFinderWeb.FindCheapestOfferController
 
   pipeline :api do
-    plug(:accepts, ["json"])
+    plug(:accepts, ["html"])
   end
 
-  scope "/api" do
+  scope "/" do
     pipe_through(:api)
+
+    get("/findCheapestOffer", FindCheapestOfferController, :index)
   end
 end

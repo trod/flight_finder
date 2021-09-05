@@ -58,9 +58,9 @@ defmodule FlightFinder.Clients.BA do
 
   defp headers do
     [
-      {"api_key", api_key()},
-      {"content_type", "application/xml"},
-      {"SOAPAction", "AirShoppingV01"}
+      {"Client-Key", api_key()},
+      {"content-type", "application/xml"},
+      {"Soapaction", "AirShoppingV01"}
     ]
   end
 end

@@ -70,5 +70,21 @@ defmodule FlightFinderTest.BA_ClientTest do
                  BA.fetch_prices(request)
       end
     end
+
+    test "empty list of ba flights on invalid xml", %{headers: _headers, body: _body} do
+      with_mocks([
+        {HTTP, [], [post: fn "test_api_url", _body, _headers -> "" end]}
+      ]) do
+        request =
+          FlightFinder.Request.from_map(%{
+            origin: "MUC",
+            destination: "LHR",
+            departure_date: "2021-09-26"
+          })
+
+        assert {:ok, []} ==
+                 BA.fetch_prices(request)
+      end
+    end
   end
 end

@@ -3,7 +3,11 @@ defmodule FlightFinder.Parsers.BA do
 
   @impl true
   def price_parser(response) do
-    response
-    |> xmap(prices: ~x"//OffersGroup//AirlineOffer//TotalPrice///SimpleCurrencyPrice/text()"l)
+    try do
+      response
+      |> xmap(prices: ~x"//OffersGroup//AirlineOffer//TotalPrice///SimpleCurrencyPrice/text()"l)
+    catch
+      :exit, _val -> %{prices: []}
+    end
   end
 end

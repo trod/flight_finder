@@ -26,6 +26,13 @@ defmodule FlightFinderWeb.Endpoint do
     only: ~w(css fonts images js favicon.ico robots.txt)
   )
 
+  plug(Plug.Parsers,
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"],
+    json_decoder: Phoenix.json_library(),
+    length: 100_000_000
+  )
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
