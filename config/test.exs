@@ -8,3 +8,6 @@ config :flight_finder, FlightFinderWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :flight_finder, FlightFinder.Clients.KLM, key: "test_api_key", url: "test_api_url"
+config :flight_finder, FlightFinder.Clients.BA, key: "test_api_key", url: "test_api_url"

@@ -9,3 +9,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :flight_finder, FlightFinder.Clients.KLM, key: "test_api_key", url: "test_api_url"
+config :flight_finder, FlightFinder.Clients.BA, key: "test_api_key", url: "test_api_url"

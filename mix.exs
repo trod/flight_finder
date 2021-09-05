@@ -28,7 +28,10 @@ defmodule FlightFinder.MixProject do
       {:phoenix, "~> 1.5.8"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:httpoison, "~> 1.8"},
       {:plug_cowboy, "~> 2.0"},
+      {:sweet_xml, "~> 0.7.1"},
+      {:decimal, "~> 2.0"},
       {:secrex, "~> 0.3", runtime: false},
       {:mock, "~> 0.3.0", only: :test}
     ]
