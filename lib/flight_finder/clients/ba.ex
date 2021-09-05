@@ -4,52 +4,10 @@ defmodule FlightFinder.Clients.BA do
   alias FlightFinder.HTTP
   alias FlightFinder.Parsers.BA, as: BAParser
 
-  @code :BA
-
   @impl true
-  def fetch_prices(request) do
-    prices =
-      request
-      |> fetch_flights_payload()
-      |> parse_flight_prices()
-
-    {:ok, prices}
-  end
-
-  defp fetch_flights_payload(params) do
-    HTTP.post(
-      url(),
-      prepare_body(params.origin, params.destination, params.departure_date),
-      headers()
-    )
-  end
+  def code, do: :BA
 
   defp parse_xml_response(response), do: BAParser.price_parser(response)
-
-  defp parse_flight_prices(result) do
-    case parse_xml_response(result) do
-      %{prices: price_list} ->
-        price_list
-        |> Enum.map(&convert_price(&1))
-        |> Enum.reject(&(&1 == :error))
-        |> Enum.map(fn price -> {@code, price} end)
-
-      _ ->
-        []
-    end
-  end
-
-  defp convert_price(price) when is_list(price) do
-    try do
-      price
-      |> String.Chars.to_string()
-      |> Decimal.new()
-    rescue
-      _e in Decimal.Error -> :error
-    end
-  end
-
-  defp convert_price(_price), do: :error
 
   defp prepare_body(origin, destination, departure_date) do
     """
@@ -104,13 +62,5 @@ defmodule FlightFinder.Clients.BA do
       {"content_type", "application/xml"},
       {"SOAPAction", "AirShoppingV01"}
     ]
-  end
-
-  defp api_key do
-    Application.get_env(:flight_finder, __MODULE__) |> Keyword.fetch!(:key)
-  end
-
-  defp url do
-    Application.get_env(:flight_finder, __MODULE__) |> Keyword.fetch!(:url)
   end
 end
