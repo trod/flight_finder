@@ -2,11 +2,10 @@ defmodule FlightFinder.Clients.BA do
   use FlightFinder.Clients.Client
 
   alias FlightFinder.HTTP
-  alias FlightFinder.Request
   alias FlightFinder.Parsers.BA, as: BAParser
 
   @impl true
-  def fetch_prices(%Request{} = request) do
+  def fetch_prices(request) do
     prices =
       request
       |> fetch_flights_payload()

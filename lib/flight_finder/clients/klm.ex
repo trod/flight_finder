@@ -2,11 +2,10 @@ defmodule FlightFinder.Clients.KLM do
   use FlightFinder.Clients.Client
 
   alias FlightFinder.HTTP
-  alias FlightFinder.Request
   alias FlightFinder.Parsers.KLM, as: KLMParser
 
   @impl true
-  def fetch_prices(%Request{} = request) do
+  def fetch_prices(request) do
     prices =
       request
       |> fetch_flights_payload()
