@@ -14,7 +14,6 @@ Flight API with the only endpoint for searching the cheapest offer for a given p
 
 ## Installation
   * Install dependencies with `mix deps.get`
-  * Decrypt secrets with `mix secret <secret code>`
   * Start server with `KLM_KEY="<add_klm_key_here>" BA_KEY="<add_ba_key_here>" MIX_ENV=prod mix phx.server`
 
 ## Tests
