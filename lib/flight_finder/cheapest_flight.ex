@@ -22,8 +22,13 @@ defmodule FlightFinder.CheapestFlight do
       |> List.flatten()
 
     case prices do
-      [] -> :not_found
-      prices -> Enum.min(prices)
+      [] ->
+        :not_found
+
+      prices ->
+        prices
+        |> Enum.sort_by(fn {_code, price} -> price end)
+        |> List.first()
     end
   end
 

@@ -4,6 +4,8 @@ defmodule FlightFinder.Clients.KLM do
   alias FlightFinder.HTTP
   alias FlightFinder.Parsers.KLM, as: KLMParser
 
+  @code :KLM
+
   @impl true
   def fetch_prices(request) do
     prices =
@@ -27,7 +29,10 @@ defmodule FlightFinder.Clients.KLM do
   defp parse_flight_prices(result) do
     case parse_xml_response(result) do
       %{prices: price_list} ->
-        price_list |> Enum.map(&convert_price(&1)) |> Enum.reject(&(&1 == :error))
+        price_list
+        |> Enum.map(&convert_price(&1))
+        |> Enum.reject(&(&1 == :error))
+        |> Enum.map(fn price -> {@code, price} end)
 
       _ ->
         []

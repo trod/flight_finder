@@ -39,12 +39,12 @@ defmodule FlightFinderTest.KLM_ClientTest do
 
         assert {:ok,
                 [
-                  Decimal.new("199.29"),
-                  Decimal.new("232.29"),
-                  Decimal.new("297.29"),
-                  Decimal.new("274.29"),
-                  Decimal.new("307.29"),
-                  Decimal.new("372.29")
+                  {:KLM, Decimal.new("199.29")},
+                  {:KLM, Decimal.new("232.29")},
+                  {:KLM, Decimal.new("297.29")},
+                  {:KLM, Decimal.new("274.29")},
+                  {:KLM, Decimal.new("307.29")},
+                  {:KLM, Decimal.new("372.29")}
                 ]} ==
                  KLM.fetch_prices(request)
       end
