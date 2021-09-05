@@ -31,6 +31,8 @@ defmodule FlightFinderWeb.FindCheapestOfferController do
   end
 
   def index(conn, _params) do
-    json(conn, %{"errors" => ["Missing required params"]})
+    conn
+    |> put_status(400)
+    |> json(%{"errors" => ["Missing required params"]})
   end
 end
