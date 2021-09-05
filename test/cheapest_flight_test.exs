@@ -15,7 +15,7 @@ defmodule FlightFinder.CheapestFlightTest do
                               destination: "LHR",
                               departure_date: "2021-09-26"
                             } ->
-             {:ok, [10.0, 15.0, 20.0]}
+             {:ok, [Decimal.new("10.0"), Decimal.new("15.0"), Decimal.new("20.0")]}
            end
          ]},
         {KLM, [],
@@ -25,7 +25,7 @@ defmodule FlightFinder.CheapestFlightTest do
                               destination: "LHR",
                               departure_date: "2021-09-26"
                             } ->
-             {:ok, [15.0, 3.0, 200.0]}
+             {:ok, [Decimal.new("15.0"), Decimal.new("3.0"), Decimal.new("200.0")]}
            end
          ]}
       ]) do
@@ -36,7 +36,7 @@ defmodule FlightFinder.CheapestFlightTest do
             departure_date: "2021-09-26"
           })
 
-        assert 3.0 == CheapestFlight.find(request)
+        assert Decimal.new("3.0") == CheapestFlight.find(request)
       end
     end
   end
