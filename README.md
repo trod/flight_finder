@@ -9,7 +9,7 @@ Flight API with the only endpoint for searching the cheapest offer for a given p
 * Authentication for endpoint
 * Telemetry, proper logging etc.
 * Some nice things like credo, dialyzer, specs which make code better.
-* Error handling: I chose "silent" api style which dfoesn't expose any errors but those a requester could address.
+* Error handling: I chose "silent" api style which doesn't expose any errors but those a requester could address.
 
 
 ## Installation
